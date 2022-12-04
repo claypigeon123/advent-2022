@@ -7,7 +7,7 @@ import lombok.NonNull;
 
 @Data
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class MatchRound {
+public class GuessedMatchRound {
 
     @NonNull
     private Hand opponentPlays;
@@ -15,10 +15,10 @@ public class MatchRound {
     @NonNull
     private Hand iPlay;
 
-    public static MatchRound fromStringTokens(String[] tokens) {
+    public static GuessedMatchRound fromStringTokens(String[] tokens) {
         Hand opponentPlays = Hand.fromLiteral(tokens[0]);
         Hand iPlay = Hand.fromLiteral(tokens[1]);
 
-        return new MatchRound(opponentPlays, iPlay);
+        return new GuessedMatchRound(opponentPlays, iPlay);
     }
 }
