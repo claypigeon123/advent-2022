@@ -6,7 +6,9 @@ import com.cp.advent2022.data.day1.ElfInventory;
 import org.springframework.stereotype.Component;
 import picocli.CommandLine.Command;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.PriorityBlockingQueue;
 
