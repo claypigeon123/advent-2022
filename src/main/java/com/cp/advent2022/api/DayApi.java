@@ -17,10 +17,10 @@ public abstract class DayApi extends Api {
 
     @Override
     protected void initialize() {
-        loadDayResource();
+        this.lines = loadDayResource();
     }
 
-    protected void loadDayResource() {
-        lines = adventResourceLoader.loadAdventResource(day);
+    protected List<String> loadDayResource() {
+        return adventResourceLoader.loadAdventResource(day);
     }
 }

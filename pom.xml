@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.5</version>
+        <version>3.0.0</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -23,7 +23,7 @@
         <snakeyaml.version>1.33</snakeyaml.version>
 
         <!-- TEST DEPENDENCY VERSIONING -->
-        <groovy.version>3.0.13</groovy.version>
+        <groovy-test.version>3.0.13</groovy-test.version>
         <bytebuddy.version>1.12.18</bytebuddy.version>
         <objenesis.version>3.2</objenesis.version>
     </properties>
@@ -82,7 +82,7 @@
         <dependency>
             <groupId>org.codehaus.groovy</groupId>
             <artifactId>groovy</artifactId>
-            <version>${groovy.version}</version>
+            <version>${groovy-test.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -96,13 +96,6 @@
             <artifactId>objenesis</artifactId>
             <version>${objenesis.version}</version>
             <scope>test</scope>
-        </dependency>
-
-        <!-- Spring vulnerability temporary fix -->
-        <dependency>
-            <groupId>org.yaml</groupId>
-            <artifactId>snakeyaml</artifactId>
-            <version>${snakeyaml.version}</version>
         </dependency>
     </dependencies>
 

@@ -1,6 +1,10 @@
 package com.cp.advent2022.api;
 
-public abstract class Api implements Runnable {
+import picocli.CommandLine.IExitCodeGenerator;
+
+public abstract class Api implements Runnable, IExitCodeGenerator {
+
+    protected int exitCode = 0;
 
     protected void initialize() {}
 
@@ -13,5 +17,10 @@ public abstract class Api implements Runnable {
         initialize();
         execute();
         close();
+    }
+
+    @Override
+    public int getExitCode() {
+        return exitCode;
     }
 }
