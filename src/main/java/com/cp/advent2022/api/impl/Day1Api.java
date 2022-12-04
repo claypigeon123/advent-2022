@@ -25,7 +25,7 @@ public class Day1Api extends DayApi {
 
     @Override
     protected void execute() {
-        BlockingQueue<ElfInventory> sortedInventoryQueue = new PriorityBlockingQueue<>(3, Comparator.comparing(ElfInventory::getInventoryCalorieCount));
+        BlockingQueue<ElfInventory> sortedInventoryQueue = new PriorityBlockingQueue<>(QUEUE_MAX_SIZE, Comparator.comparing(ElfInventory::getInventoryCalorieCount));
 
         ElfInventory tempInventory = new ElfInventory();
         for (String line : lines) {
