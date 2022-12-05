@@ -10,22 +10,22 @@ import java.util.List;
 @Data
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Rucksack {
-    private List<Item> compartmentOne;
+    private List<Character> compartmentOne;
 
-    private List<Item> compartmentTwo;
+    private List<Character> compartmentTwo;
 
     public static Rucksack fromString(String items) {
-        List<Item> compartmentOne = new ArrayList<>();
-        List<Item> compartmentTwo = new ArrayList<>();
+        List<Character> compartmentOne = new ArrayList<>();
+        List<Character> compartmentTwo = new ArrayList<>();
 
         char[] chars = items.toCharArray();
         int half = chars.length / 2;
 
         for (int i = 0; i < chars.length; i++) {
             if (i < half) {
-                compartmentOne.add(Item.fromChar(chars[i]));
+                compartmentOne.add(chars[i]);
             } else {
-                compartmentTwo.add(Item.fromChar(chars[i]));
+                compartmentTwo.add(chars[i]);
             }
         }
 
