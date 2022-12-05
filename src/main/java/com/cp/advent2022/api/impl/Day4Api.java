@@ -20,6 +20,7 @@ public class Day4Api extends DayApi {
     @Override
     protected void execute() {
         int coveredCounter = 0;
+        int overlappedCounter = 0;
 
         for (String line : lines) {
             Assignment assignment = Assignment.fromString(line);
@@ -27,8 +28,16 @@ public class Day4Api extends DayApi {
             if (assignment.getFirstTask().coversRange(assignment.getSecondTask())) {
                 coveredCounter++;
             }
+
+            if (assignment.getFirstTask().overlapsRange(assignment.getSecondTask())) {
+                overlappedCounter++;
+            }
         }
 
+        // ---
+
         System.out.printf("1. Assignments that fully cover themselves: %d\n\n", coveredCounter);
+
+        System.out.printf("2. Assignments that overlap themselves: %d\n\n", overlappedCounter);
     }
 }
