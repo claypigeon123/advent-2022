@@ -13,10 +13,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.PriorityBlockingQueue;
 
 @Component
-@Command(
-    name = "day1",
-    mixinStandardHelpOptions = true
-)
+@Command(name = "day1", mixinStandardHelpOptions = true)
 public class Day1Api extends DayApi {
 
     private static final int QUEUE_MAX_SIZE = 3;

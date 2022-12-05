@@ -6,13 +6,13 @@ import com.cp.advent2022.data.day3.Rucksack;
 import org.springframework.stereotype.Component;
 import picocli.CommandLine.Command;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Component
-@Command(
-    name = "day3",
-    mixinStandardHelpOptions = true
-)
+@Command(name = "day3", mixinStandardHelpOptions = true)
 public class Day3Api extends DayApi {
 
     public Day3Api(AdventResourceLoader adventResourceLoader) {

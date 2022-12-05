@@ -7,10 +7,7 @@ import org.springframework.stereotype.Component;
 import picocli.CommandLine.Command;
 
 @Component
-@Command(
-    name = "day4",
-    mixinStandardHelpOptions = true
-)
+@Command(name = "day4", mixinStandardHelpOptions = true)
 public class Day4Api extends DayApi {
 
     public Day4Api(AdventResourceLoader adventResourceLoader) {

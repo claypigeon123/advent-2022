@@ -11,10 +11,7 @@ import org.springframework.stereotype.Component;
 import picocli.CommandLine.Command;
 
 @Component
-@Command(
-    name = "day2",
-    mixinStandardHelpOptions = true
-)
+@Command(name = "day2", mixinStandardHelpOptions = true)
 public class Day2Api extends DayApi {
 
     private final MatchRoundResolver<GuessedMatchRound> guessedResolver;
