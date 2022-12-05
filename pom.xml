@@ -24,7 +24,7 @@
 
         <!-- TEST DEPENDENCY VERSIONING -->
         <groovy-test.version>3.0.13</groovy-test.version>
-        <bytebuddy.version>1.12.18</bytebuddy.version>
+        <bytebuddy.version>1.12.19</bytebuddy.version>
         <objenesis.version>3.2</objenesis.version>
     </properties>
 
@@ -45,10 +45,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-json</artifactId>
         </dependency>
 
         <!-- UTIL -->
@@ -101,7 +97,7 @@
 
     <build>
         <plugins>
-            <!-- Spring Boot packaging VS appassembler packaging -> use only one -->
+            <!-- Spring Boot packaging VS appassembler packaging - use only one -->
 
             <plugin>
                 <groupId>org.springframework.boot</groupId>
