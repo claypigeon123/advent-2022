@@ -62,6 +62,10 @@ public class Day3Api extends DayApi {
     }
 
     private int findCommonPriorityInRucksacks(List<Rucksack> rucksacks) {
+        if (rucksacks.size() < 2) {
+            return 0;
+        }
+
         List<Set<Character>> rucksacksContents = new ArrayList<>();
 
         for (Rucksack rucksack : rucksacks) {
