@@ -5,7 +5,8 @@ import com.cp.advent2022.component.AdventResourceLoader;
 import com.cp.advent2022.data.day5.CrateStorage;
 import com.cp.advent2022.data.day5.Instruction;
 import com.cp.advent2022.data.day5.processor.CrateStorageOperationProcessor;
-import com.cp.advent2022.data.day5.processor.impl.SimpleCrateStorageOperationProcessor;
+import com.cp.advent2022.data.day5.processor.impl.CrateMover9000;
+import com.cp.advent2022.data.day5.processor.impl.CrateMover9001;
 import org.springframework.stereotype.Component;
 import picocli.CommandLine.Command;
 
@@ -16,11 +17,13 @@ import java.util.List;
 @Command(name = "day5", mixinStandardHelpOptions = true)
 public class Day5Api extends DayApi {
 
-    private final CrateStorageOperationProcessor simpleProcessor;
+    private final CrateStorageOperationProcessor crateMover9000;
+    private final CrateStorageOperationProcessor crateMover9001;
 
     public Day5Api(AdventResourceLoader adventResourceLoader) {
         super(5, adventResourceLoader);
-        simpleProcessor = new SimpleCrateStorageOperationProcessor();
+        crateMover9000 = new CrateMover9000();
+        crateMover9001 = new CrateMover9001();
     }
 
     @Override
@@ -42,18 +45,29 @@ public class Day5Api extends DayApi {
             }
         }
 
-        CrateStorage crateStorage = CrateStorage.fromArrangementLines(arrangementLines);
+        CrateStorage firstCrateStorage = CrateStorage.fromArrangementLines(arrangementLines);
+        crateMover9000.executeInstructions(firstCrateStorage, instructions);
 
-        simpleProcessor.executeInstructions(crateStorage, instructions);
+        CrateStorage secondCrateStorage = CrateStorage.fromArrangementLines(arrangementLines);
+        crateMover9001.executeInstructions(secondCrateStorage, instructions);
 
         // ---
 
         System.out.printf(
-            "1. After rearrangement, the labels of the uppermost crates spell out %s.\n\n",
-            crateStorage.getStacks().values().stream()
-                .filter(crates -> crates.peek() != null)
-                .map(crates -> crates.peek().getLabel())
-                .reduce("", (s, c) -> s + c, (s1, s2) -> s1 + s2)
+            "1. After rearrangement with the CrateMover 9000, the labels of the uppermost crates spell out %s.\n\n",
+            readUppermostLabelsInCrateStorage(firstCrateStorage)
         );
+
+        System.out.printf(
+            "2. After rearrangement with the CrateMover 9001, the labels of the uppermost crates spell out %s.\n\n",
+            readUppermostLabelsInCrateStorage(secondCrateStorage)
+        );
+    }
+
+    private String readUppermostLabelsInCrateStorage(CrateStorage crateStorage) {
+        return crateStorage.getStacks().values().stream()
+            .filter(crates -> crates.peek() != null)
+            .map(crates -> crates.peek().getLabel())
+            .reduce("", (s, c) -> s + c, (s1, s2) -> s1 + s2);
     }
 }

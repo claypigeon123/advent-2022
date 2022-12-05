@@ -7,7 +7,7 @@ import com.cp.advent2022.data.day5.processor.CrateStorageOperationProcessor;
 
 import java.util.List;
 
-public class SimpleCrateStorageOperationProcessor implements CrateStorageOperationProcessor {
+public class CrateMover9000 implements CrateStorageOperationProcessor {
 
     @Override
     public void executeInstructions(CrateStorage crateStorage, List<Instruction> instructions) {
