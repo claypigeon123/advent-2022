@@ -36,8 +36,8 @@ public class Day4Api extends DayApi {
 
         // ---
 
-        System.out.printf("1. Assignments that fully cover themselves: %d\n\n", coveredCounter);
+        System.out.printf("1. The number of assignments that fully cover themselves is %d.\n\n", coveredCounter);
 
-        System.out.printf("2. Assignments that overlap themselves: %d\n\n", overlappedCounter);
+        System.out.printf("2. The number of assignments that overlap themselves is %d.\n\n", overlappedCounter);
     }
 }

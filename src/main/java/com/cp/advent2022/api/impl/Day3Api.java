@@ -40,9 +40,9 @@ public class Day3Api extends DayApi {
 
         // ---
 
-        System.out.printf("1. The sum of the misplaced item types' priority is %d\n\n", prioritySum);
+        System.out.printf("1. The sum of the misplaced item types' priority is %d.\n\n", prioritySum);
 
-        System.out.printf("2. The sum of each three-grouped elf groups' priorities is %d\n\n", groupedPrioritySum);
+        System.out.printf("2. The sum of each three-grouped elf groups' priorities is %d.\n\n", groupedPrioritySum);
     }
 
     private int calculatePriority(Character c) {
