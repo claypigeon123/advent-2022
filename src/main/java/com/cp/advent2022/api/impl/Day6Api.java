@@ -21,18 +21,28 @@ public class Day6Api extends DayApi {
     protected void execute() {
         String dataStreamBuffer = lines.get(0);
 
-        int startOfPacketMarker = 0;
-        for (int i = 3; i < dataStreamBuffer.length(); i++) {
-            String sub = dataStreamBuffer.substring(i - 3, i + 1);
+        int startOfPacketMarker = lookForMarkerStart(dataStreamBuffer, 4);
+
+        int startOfMessageMarker = lookForMarkerStart(dataStreamBuffer, 14);
+
+        // ---
+
+        System.out.printf("1. The first time a start-of-packet marker appears is after %d characters have been processed.\n\n", startOfPacketMarker);
+
+        System.out.printf("2. The first time a start-of-message marker appears is after %d characters have been processed.\n\n", startOfMessageMarker);
+    }
+
+    private int lookForMarkerStart(String buffer, int blockSize) {
+        int startMarker = 0;
+        for (int i = blockSize - 1; i < buffer.length(); i++) {
+            String sub = buffer.substring(i - (blockSize - 1), i + 1);
 
             if (sub.matches(ALL_CHARS_UNIQUE_REGEX)) {
-                startOfPacketMarker = i + 1;
+                startMarker = i + 1;
                 break;
             }
         }
 
-        // ---
-
-        System.out.printf("1. The first time a marker appears is after %d characters have been processed.\n\n", startOfPacketMarker);
+        return startMarker;
     }
 }
