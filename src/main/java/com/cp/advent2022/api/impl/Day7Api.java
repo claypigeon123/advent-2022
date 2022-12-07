@@ -42,12 +42,10 @@ public class Day7Api extends DayApi {
         Directory root = new Directory("/", null);
 
         Directory pwd = root;
-        for (int i = 1; i < lines.size(); i++) {
-            String line = lines.get(i);
-
+        for (String line : lines) {
             if (line.startsWith(COMMAND_PREFIX) ) {
                 if (line.startsWith(COMMAND_CD)) {
-                    String moveTo = line.substring(line.lastIndexOf(COMMAND_CD) + COMMAND_CD.length());
+                    String moveTo = line.substring(COMMAND_CD.length());
 
                     if (moveTo.equals(BACK) && pwd.getParent() != null) {
                         pwd = pwd.getParent();

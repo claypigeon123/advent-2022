@@ -19,9 +19,13 @@ public class File extends AbstractFilesystemItem {
 
     @Override
     protected void print(int levelsDeep) {
-        StringBuilder base = new StringBuilder();
-        base.append(" ".repeat(Math.max(0, levelsDeep)));
-        base.append("- ").append(name).append(" (file, size=").append(size).append(")");
+        StringBuilder base = new StringBuilder()
+            .append(" ".repeat(Math.max(0, levelsDeep)))
+            .append("- ")
+            .append(name)
+            .append(" (file, size=")
+            .append(size)
+            .append(")");
 
         System.out.println(base);
     }

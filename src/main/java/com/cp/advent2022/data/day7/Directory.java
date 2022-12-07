@@ -36,11 +36,14 @@ public class Directory extends AbstractFilesystemItem {
 
     @Override
     public void print(int levelsDeep) {
-        StringBuilder base = new StringBuilder();
-        base.append(" ".repeat(Math.max(0, levelsDeep)));
-        base.append("- ").append(name).append(" (dir)");
+        StringBuilder base = new StringBuilder()
+            .append(" ".repeat(Math.max(0, levelsDeep)))
+            .append("- ")
+            .append(name)
+            .append(" (dir)");
 
         System.out.println(base);
+
         for (AbstractFilesystemItem item : children.values()) {
             item.print(levelsDeep + 2);
         }
