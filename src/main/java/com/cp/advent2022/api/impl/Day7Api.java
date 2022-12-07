@@ -29,9 +29,13 @@ public class Day7Api extends DayApi {
 
         long sizeSumPartOne = sumDirectoriesUnderSize(root, 100_000);
 
+        long dirToDeleteSize = findDirectoryToDelete(root, 70_000_000, 30_000_000);
+
         // --
 
         System.out.printf("1. Sum of the size of directories under 100000 is %d.\n\n", sizeSumPartOne);
+
+        System.out.printf("2. Size of the best folder to delete is %d.\n\n", dirToDeleteSize);
     }
 
     private Directory establishFileSystem() {
@@ -93,5 +97,33 @@ public class Day7Api extends DayApi {
         }
 
         return sizeSum;
+    }
+
+    private long findDirectoryToDelete(Directory root, long totalSpace, long requiredSpace) {
+        long usedSpace = root.size();
+        long unusedSpace = totalSpace - usedSpace;
+
+        long spaceToClear = requiredSpace - unusedSpace;
+        long selectedFolderSpace = usedSpace;
+
+        Queue<Directory> directoryQueue = new LinkedList<>();
+        directoryQueue.offer(root);
+
+        while (directoryQueue.peek() != null) {
+            Directory current = directoryQueue.poll();
+            long size = current.size();
+
+            if (size >= spaceToClear && size < selectedFolderSpace) {
+                selectedFolderSpace = size;
+            }
+
+            for (AbstractFilesystemItem item : current.getChildren().values()) {
+                if (item instanceof Directory d) {
+                    directoryQueue.offer(d);
+                }
+            }
+        }
+
+        return selectedFolderSpace;
     }
 }
