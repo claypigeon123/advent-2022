@@ -47,9 +47,24 @@ public class Day8Api extends DayApi {
             }
         }
 
+        int highestScenicScore = 0;
+        for (int y = 0; y < treeLayout.size(); y++) {
+            List<Byte> treeLine = treeLayout.get(y);
+
+            for (int x = 0; x < treeLine.size(); x++) {
+                int scenicScore = calculateScenicScore(treeLayout, y, x);
+
+                if (scenicScore > highestScenicScore) {
+                    highestScenicScore = scenicScore;
+                }
+            }
+        }
+
         // --
 
         System.out.printf("1. The number of trees visible from the outside is %d.\n\n", visibleCount);
+
+        System.out.printf("2. The highest scenic score for any tree in the layout is %d.\n\n", highestScenicScore);
     }
 
     private boolean isVisible(List<List<Byte>> treeLayout, int checkY, int checkX) {
@@ -62,7 +77,6 @@ public class Day8Api extends DayApi {
             }
             if (y == treeLayout.size() - 1) {
                 visible = true;
-                System.out.printf("y: %d, x: %d - visible from the SOUTH\n\n", checkY, checkX);
                 break;
             }
         }
@@ -73,7 +87,6 @@ public class Day8Api extends DayApi {
             }
             if (y == 0) {
                 visible = true;
-                System.out.printf("y: %d, x: %d - visible from the NORTH\n\n", checkY, checkX);
                 break;
             }
         }
@@ -97,12 +110,10 @@ public class Day8Api extends DayApi {
 
             if (x == checkX - 1) {
                 visible = true;
-                System.out.printf("y: %d, x: %d - visible from the WEST\n\n", checkY, checkX);
                 break;
             }
             if (x == treeLine.size() - 1) {
                 visible = true;
-                System.out.printf("y: %d, x: %d - visible from the EAST\n\n", checkY, checkX);
                 break;
             }
         }
@@ -110,12 +121,42 @@ public class Day8Api extends DayApi {
         return visible;
     }
 
-    private void printTreeLayout(List<List<Byte>> treeLayout) {
-        for (List<Byte> treeLine : treeLayout) {
-            for (Byte height : treeLine) {
-                System.out.print(height);
+    private int calculateScenicScore(List<List<Byte>> treeLayout, int checkY, int checkX) {
+        byte compareHeight = treeLayout.get(checkY).get(checkX);
+
+        int southScore = 0;
+        for (int y = checkY + 1; y < treeLayout.size(); y++) {
+            southScore++;
+            if (treeLayout.get(y).get(checkX) >= compareHeight) {
+                break;
             }
-            System.out.print("\n");
         }
+
+        int northScore = 0;
+        for (int y = checkY - 1; y >= 0; y--) {
+            northScore++;
+            if (treeLayout.get(y).get(checkX) >= compareHeight) {
+                break;
+            }
+        }
+
+        int eastScore = 0;
+        List<Byte> treeLine = treeLayout.get(checkY);
+        for (int x = checkX + 1; x < treeLine.size(); x++) {
+            eastScore++;
+            if (treeLine.get(x) >= compareHeight) {
+                break;
+            }
+        }
+
+        int westScore = 0;
+        for (int x = checkX - 1; x >= 0; x--) {
+            westScore++;
+            if (treeLine.get(x) >= compareHeight) {
+                break;
+            }
+        }
+
+        return southScore * northScore * westScore * eastScore;
     }
 }
