@@ -24,10 +24,10 @@ public class Directory extends AbstractFilesystemItem {
         long size = 0;
 
         for (AbstractFilesystemItem child : children.values()) {
-            switch (child) {
-                case File file -> size += file.getSize();
-                case Directory dir -> size += dir.size();
-                default -> {}
+            if (child instanceof File file) {
+                size += file.getSize();
+            } else if (child instanceof Directory dir) {
+                size += dir.size();
             }
         }
 
