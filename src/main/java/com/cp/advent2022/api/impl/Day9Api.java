@@ -5,7 +5,7 @@ import com.cp.advent2022.component.AdventResourceLoader;
 import com.cp.advent2022.data.day9.GridItem;
 import com.cp.advent2022.data.day9.Instruction;
 import com.cp.advent2022.data.day9.processor.GridKnotInstructionProcessor;
-import com.cp.advent2022.data.day9.processor.impl.SimpleGridKnotInstructionProcessor;
+import com.cp.advent2022.data.day9.processor.impl.GridKnotInstructionProcessorImpl;
 import org.springframework.stereotype.Component;
 import picocli.CommandLine.Command;
 
@@ -13,16 +13,17 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.IntStream;
 
 @Component
 @Command(name = "day9", mixinStandardHelpOptions = true)
 public class Day9Api extends DayApi {
 
-    private final GridKnotInstructionProcessor simpleProcessor;
+    private final GridKnotInstructionProcessor instructionProcessor;
 
     public Day9Api(AdventResourceLoader adventResourceLoader) {
         super(9, adventResourceLoader);
-        this.simpleProcessor = new SimpleGridKnotInstructionProcessor();
+        this.instructionProcessor = new GridKnotInstructionProcessorImpl();
     }
 
     @Override
@@ -33,17 +34,25 @@ public class Day9Api extends DayApi {
             instructions.add(Instruction.fromString(line));
         }
 
-        GridItem head = new GridItem();
-        GridItem tail = new GridItem();
-        Set<String> visited = new HashSet<>();
-        visited.add(tail.positionToString());
+        List<GridItem> gridItemsPartOne = IntStream.range(0, 2)
+            .mapToObj(i -> new GridItem())
+            .toList();
+        Set<String> visitedPartOne = new HashSet<>();
+
+        List<GridItem> gridItemsPartTwo = IntStream.range(0, 10)
+            .mapToObj(i -> new GridItem())
+            .toList();
+        Set<String> visitedPartTwo = new HashSet<>();
 
         for (Instruction instruction : instructions) {
-            visited.addAll(simpleProcessor.process(head, tail, instruction));
+            visitedPartOne.addAll(instructionProcessor.process(gridItemsPartOne, instruction));
+            visitedPartTwo.addAll(instructionProcessor.process(gridItemsPartTwo, instruction));
         }
 
         // --
 
-        System.out.printf("1. The tail visited %d unique position(s) on the grid.\n\n", visited.size());
+        System.out.printf("1. The tail of the rope of 2 knots visited %d unique position(s) on the grid.\n\n", visitedPartOne.size());
+
+        System.out.printf("2. The tail of the rope of 10 knots visited %d unique position(s) on the grid.\n\n", visitedPartTwo.size());
     }
 }

@@ -6,19 +6,25 @@ import com.cp.advent2022.data.day9.Instruction;
 import com.cp.advent2022.data.day9.processor.GridKnotInstructionProcessor;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
-public class SimpleGridKnotInstructionProcessor implements GridKnotInstructionProcessor {
+public class GridKnotInstructionProcessorImpl implements GridKnotInstructionProcessor {
 
     @Override
-    public Set<String> process(GridItem head, GridItem tail, Instruction instruction) {
+    public Set<String> process(List<GridItem> gridItems, Instruction instruction) {
         Set<String> tailPositionsVisited = new HashSet<>();
-        tailPositionsVisited.add(tail.positionToString());
+        tailPositionsVisited.add(gridItems.get(gridItems.size() - 1).positionToString());
 
         for (int i = 0; i < instruction.getN(); i++) {
-            moveItem(head, instruction.getDirection());
-            followItem(head, tail);
-            tailPositionsVisited.add(tail.positionToString());
+            moveItem(gridItems.get(0), instruction.getDirection());
+
+            for (int k = 1; k < gridItems.size(); k++) {
+                GridItem tail = gridItems.get(k);
+                followItem(gridItems.get(k - 1), tail);
+            }
+
+            tailPositionsVisited.add(gridItems.get(gridItems.size() - 1).positionToString());
         }
 
         return tailPositionsVisited;
