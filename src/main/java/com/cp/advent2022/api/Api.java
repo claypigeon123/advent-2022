@@ -8,15 +8,19 @@ public abstract class Api implements Runnable, IExitCodeGenerator {
 
     protected void initialize() {}
 
-    protected abstract void execute();
+    protected abstract void execute() throws Exception;
 
     protected void close() {}
 
     @Override
     public final void run() {
-        initialize();
-        execute();
-        close();
+        try {
+            initialize();
+            execute();
+            close();
+        } catch (Exception e) {
+            exitCode = -1;
+        }
     }
 
     @Override
