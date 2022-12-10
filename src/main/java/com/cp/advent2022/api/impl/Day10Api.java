@@ -26,13 +26,13 @@ public class Day10Api extends DayApi {
     @Override
     protected void execute() throws ExecutionException, InterruptedException {
         Set<Long> firstPartCyclesToCheck = Set.of(20L, 60L, 100L, 140L, 180L, 220L);
-        AbstractHandheldDevice handheldDevice = new SimpleHandheldDevice(firstPartCyclesToCheck);
+        AbstractHandheldDevice simpleHandheldDevice = new SimpleHandheldDevice(firstPartCyclesToCheck);
 
         for (String line : lines) {
-            handheldDevice.queueStatement(Statement.fromString(line));
+            simpleHandheldDevice.queueStatement(Statement.fromString(line));
         }
 
-        Long sumOfChecked = executor.submit(handheldDevice).get();
+        Long sumOfChecked = executor.submit(simpleHandheldDevice).get();
 
         // ---
 

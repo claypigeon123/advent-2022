@@ -25,7 +25,7 @@ public class SimpleHandheldDevice extends AbstractHandheldDevice {
     }
 
     @Override
-    public void executeStatement(Statement statement) {
+    protected void executeStatement(Statement statement) {
         if (Objects.requireNonNull(statement.getInstruction()) == Instruction.ADD_X) {
             this.xRegister = xRegister + Integer.parseInt(statement.getArguments().get(0));
         }

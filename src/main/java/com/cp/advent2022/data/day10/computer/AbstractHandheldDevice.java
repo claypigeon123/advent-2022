@@ -44,7 +44,7 @@ public abstract class AbstractHandheldDevice implements Callable<Long> {
 
     public abstract void queueStatement(Statement statement);
 
-    public abstract void executeStatement(Statement statement);
+    protected abstract void executeStatement(Statement statement);
 
     protected void tick() {
         Statement statement = statementQueue.poll();
