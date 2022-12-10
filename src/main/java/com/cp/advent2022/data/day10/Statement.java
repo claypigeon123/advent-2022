@@ -13,6 +13,10 @@ public class Statement {
     private Instruction instruction;
     private List<String> arguments;
 
+    public static Statement noOp() {
+        return new Statement(Instruction.NO_OPERATION, null);
+    }
+
     public static Statement fromString(String line) {
         String[] split = line.split(" ");
         Instruction instruction = Instruction.fromLiteral(split[0]);

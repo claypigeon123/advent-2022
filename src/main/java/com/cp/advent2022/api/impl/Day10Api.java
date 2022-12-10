@@ -3,8 +3,7 @@ package com.cp.advent2022.api.impl;
 import com.cp.advent2022.api.DayApi;
 import com.cp.advent2022.component.AdventResourceLoader;
 import com.cp.advent2022.data.day10.Statement;
-import com.cp.advent2022.data.day10.computer.AbstractHandheldDevice;
-import com.cp.advent2022.data.day10.computer.impl.SimpleHandheldDevice;
+import com.cp.advent2022.data.day10.computer.impl.HandheldDeviceWithDisplay;
 import org.springframework.stereotype.Component;
 import picocli.CommandLine.Command;
 
@@ -25,17 +24,20 @@ public class Day10Api extends DayApi {
 
     @Override
     protected void execute() throws ExecutionException, InterruptedException {
-        Set<Long> firstPartCyclesToCheck = Set.of(20L, 60L, 100L, 140L, 180L, 220L);
-        AbstractHandheldDevice simpleHandheldDevice = new SimpleHandheldDevice(firstPartCyclesToCheck);
+        Set<Integer> cyclesToCheck = Set.of(20, 60, 100, 140, 180, 220);
+        HandheldDeviceWithDisplay handheldDevice = new HandheldDeviceWithDisplay(cyclesToCheck);
 
         for (String line : lines) {
-            simpleHandheldDevice.queueStatement(Statement.fromString(line));
+            handheldDevice.queueStatement(Statement.fromString(line));
         }
 
-        Long sumOfChecked = executor.submit(simpleHandheldDevice).get();
+        executor.submit(handheldDevice).get();
 
         // ---
 
-        System.out.printf("1. The sum of signal strengths during cycles %s is %d.\n\n", firstPartCyclesToCheck, sumOfChecked);
+        System.out.printf("1. The sum of signal strengths during cycles %s is %d.\n\n", cyclesToCheck, handheldDevice.getSumOfCheckedCycles());
+
+        System.out.print("2. The screen rendered by the device is:\n");
+        handheldDevice.renderScreen(System.out);
     }
 }

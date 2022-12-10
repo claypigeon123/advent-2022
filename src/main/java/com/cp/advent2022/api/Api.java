@@ -20,6 +20,7 @@ public abstract class Api implements Runnable, IExitCodeGenerator {
             close();
         } catch (Exception e) {
             exitCode = -1;
+            e.printStackTrace();
         }
     }
 
