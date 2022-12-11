@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.Queue;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 
 @Data
@@ -13,20 +14,11 @@ public class Monkey {
 
     private int inspectedCount;
 
-    private Queue<Integer> items;
+    private Queue<Long> items;
 
-    private Function<Integer, Integer> operation;
+    private BiFunction<Long, Boolean, Long> operation;
 
-    private Function<Integer, Integer> test;
+    private long divisibleBy;
 
-    /*public void inspectItem(int index) {
-        int worry = items.poll(index);
-        worry = operation.apply(worry);
-        worry = Math.floorDiv(worry, 3);
-        items.set(index, worry);
-    }
-
-    public void decideThrow(int index) {
-
-    }*/
+    private Function<Long, Integer> test;
 }

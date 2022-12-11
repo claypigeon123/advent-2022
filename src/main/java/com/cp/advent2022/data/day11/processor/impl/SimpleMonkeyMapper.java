@@ -6,6 +6,7 @@ import com.cp.advent2022.data.day11.processor.MonkeyMapper;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 
 public class SimpleMonkeyMapper implements MonkeyMapper {
@@ -20,22 +21,22 @@ public class SimpleMonkeyMapper implements MonkeyMapper {
         // Starting items
         token = lines.get(1);
         token = token.substring(token.lastIndexOf(":") + 2);
-        Queue<Integer> startingItems = new LinkedList<>();
+        Queue<Long> startingItems = new LinkedList<>();
         for (String item : token.split(", ")) {
-            startingItems.offer(Integer.parseInt(item));
+            startingItems.offer(Long.parseLong(item));
         }
 
         // Operation
         token = lines.get(2);
         token = token.substring(token.indexOf("old") + 4);
         String[] operationTokens = token.split(" ");
-        Function<Integer, Integer> operation = old -> {
+        BiFunction<Long, Boolean, Long> operation = (old, useLcm) -> {
             String target = operationTokens[1];
-            int targetInt = target.equals("old") ? old : Integer.parseInt(target);
+            long targetLong = target.equals("old") ? old : Long.parseLong(target);
 
             return switch (operationTokens[0]) {
-                case "*" -> old * targetInt;
-                case "+" -> old + targetInt;
+                case "*" -> old * targetLong;
+                case "+" -> old + targetLong;
                 default -> old;
             };
         };
@@ -43,7 +44,7 @@ public class SimpleMonkeyMapper implements MonkeyMapper {
         // Test
         token = lines.get(3);
         token = token.substring(token.lastIndexOf("by") + 3);
-        int divisibleBy = Integer.parseInt(token);
+        long divisibleBy = Long.parseLong(token);
 
         token = lines.get(4);
         token = token.substring(token.lastIndexOf("monkey") + 7);
@@ -53,7 +54,7 @@ public class SimpleMonkeyMapper implements MonkeyMapper {
         token = token.substring(token.lastIndexOf("monkey") + 7);
         int falseThrowTo = Integer.parseInt(token);
 
-        Function<Integer, Integer> test = old -> {
+        Function<Long, Integer> test = old -> {
             if (old % divisibleBy == 0) {
                 return trueThrowTo;
             }
@@ -61,6 +62,6 @@ public class SimpleMonkeyMapper implements MonkeyMapper {
             return falseThrowTo;
         };
 
-        return new Monkey(index, 0, startingItems, operation, test);
+        return new Monkey(index, 0, startingItems, operation, divisibleBy, test);
     }
 }

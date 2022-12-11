@@ -29,24 +29,31 @@ public class Day11Api extends DayApi {
 
     @Override
     protected void execute() throws Exception {
-        List<Monkey> monkeys = new ArrayList<>();
+        List<Monkey> monkeysPartOne = new ArrayList<>();
+        List<Monkey> monkeysPartTwo = new ArrayList<>();
 
         List<String> rollingLines = new ArrayList<>();
         for (String line : lines) {
             if (line.isBlank()) {
-                monkeys.add(simpleMonkeyMapper.createMonkey(rollingLines));
+                monkeysPartOne.add(simpleMonkeyMapper.createMonkey(rollingLines));
+                monkeysPartTwo.add(simpleMonkeyMapper.createMonkey(rollingLines));
                 rollingLines = new ArrayList<>();
                 continue;
             }
 
             rollingLines.add(line);
         }
-        monkeys.add(simpleMonkeyMapper.createMonkey(rollingLines));
+        monkeysPartOne.add(simpleMonkeyMapper.createMonkey(rollingLines));
+        monkeysPartTwo.add(simpleMonkeyMapper.createMonkey(rollingLines));
 
-        int monkeyBusiness = roundProcessor.processRounds(monkeys, 20);
+        long monkeyBusinessPartOne = roundProcessor.processRounds(monkeysPartOne, 20, 3);
+
+        long monkeyBusinessPartTwo = roundProcessor.processRounds(monkeysPartTwo, 10_000, null);
 
         // --
 
-        System.out.printf("1. The level of monkey business after 20 rounds is %d.\n\n", monkeyBusiness);
+        System.out.printf("1. The level of monkey business after 20 rounds is %d.\n\n", monkeyBusinessPartOne);
+
+        System.out.printf("2. The level of monkey business after 10000 rounds is %d.\n\n", monkeyBusinessPartTwo);
     }
 }
