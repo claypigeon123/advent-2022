@@ -1,4 +1,4 @@
-package com.cp.advent2022.annotation;
+package com.cp.advent2022.aspect.resloader;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

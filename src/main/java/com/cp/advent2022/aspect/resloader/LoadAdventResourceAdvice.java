@@ -1,4 +1,4 @@
-package com.cp.advent2022.annotation;
+package com.cp.advent2022.aspect.resloader;
 
 import com.cp.advent2022.api.DayApi;
 import com.cp.advent2022.component.AdventResourceLoader;
@@ -15,7 +15,7 @@ public class LoadAdventResourceAdvice {
 
     private final AdventResourceLoader adventResourceLoader;
 
-    @Before("@within(com.cp.advent2022.annotation.LoadAdventResource) || @annotation(LoadAdventResource)")
+    @Before("@within(com.cp.advent2022.aspect.resloader.LoadAdventResource) || @annotation(com.cp.advent2022.aspect.resloader.LoadAdventResource)")
     public void loadAdventResource(JoinPoint jp) {
         DayApi api = (DayApi) jp.getThis();
         api.setLines(adventResourceLoader.loadAdventResource(api.getDay()));

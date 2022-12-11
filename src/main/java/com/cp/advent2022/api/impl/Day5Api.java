@@ -1,7 +1,7 @@
 package com.cp.advent2022.api.impl;
 
-import com.cp.advent2022.annotation.LoadAdventResource;
 import com.cp.advent2022.api.DayApi;
+import com.cp.advent2022.aspect.resloader.LoadAdventResource;
 import com.cp.advent2022.data.day5.CrateStorage;
 import com.cp.advent2022.data.day5.Instruction;
 import com.cp.advent2022.data.day5.processor.CrateStorageOperationProcessor;
