@@ -11,7 +11,7 @@ public class SimpleRoundProcessor implements RoundProcessor {
 
     @Override
     public long processRounds(List<Monkey> monkeys, int rounds, Integer quellBy) {
-        Long lcm = monkeys.stream()
+        Long lcm = quellBy != null ? null : monkeys.stream()
             .map(Monkey::getDivisibleBy)
             .reduce(1L, PuzzleUtils::leastCommonMultiple);
 
@@ -22,7 +22,7 @@ public class SimpleRoundProcessor implements RoundProcessor {
         }
 
         return monkeys.stream()
-            .sorted(Comparator.comparingInt(Monkey::getInspectedCount).reversed())
+            .sorted(Comparator.comparingLong(Monkey::getInspectedCount).reversed())
             .mapToLong(Monkey::getInspectedCount)
             .limit(2)
             .reduce((left, right) -> left * right)
