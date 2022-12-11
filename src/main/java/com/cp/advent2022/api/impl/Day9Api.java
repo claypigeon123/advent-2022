@@ -1,7 +1,7 @@
 package com.cp.advent2022.api.impl;
 
+import com.cp.advent2022.annotation.LoadAdventResource;
 import com.cp.advent2022.api.DayApi;
-import com.cp.advent2022.component.AdventResourceLoader;
 import com.cp.advent2022.data.day9.GridItem;
 import com.cp.advent2022.data.day9.Instruction;
 import com.cp.advent2022.data.day9.processor.GridKnotInstructionProcessor;
@@ -16,13 +16,14 @@ import java.util.Set;
 import java.util.stream.IntStream;
 
 @Component
+@LoadAdventResource
 @Command(name = "day9", mixinStandardHelpOptions = true)
 public class Day9Api extends DayApi {
 
     private final GridKnotInstructionProcessor instructionProcessor;
 
-    public Day9Api(AdventResourceLoader adventResourceLoader) {
-        super(9, adventResourceLoader);
+    public Day9Api() {
+        super(9);
         this.instructionProcessor = new GridKnotInstructionProcessorImpl();
     }
 

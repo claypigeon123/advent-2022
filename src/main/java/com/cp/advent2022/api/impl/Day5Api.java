@@ -1,7 +1,7 @@
 package com.cp.advent2022.api.impl;
 
+import com.cp.advent2022.annotation.LoadAdventResource;
 import com.cp.advent2022.api.DayApi;
-import com.cp.advent2022.component.AdventResourceLoader;
 import com.cp.advent2022.data.day5.CrateStorage;
 import com.cp.advent2022.data.day5.Instruction;
 import com.cp.advent2022.data.day5.processor.CrateStorageOperationProcessor;
@@ -14,14 +14,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
+@LoadAdventResource
 @Command(name = "day5", mixinStandardHelpOptions = true)
 public class Day5Api extends DayApi {
 
     private final CrateStorageOperationProcessor crateMover9000;
     private final CrateStorageOperationProcessor crateMover9001;
 
-    public Day5Api(AdventResourceLoader adventResourceLoader) {
-        super(5, adventResourceLoader);
+    public Day5Api() {
+        super(5);
         crateMover9000 = new CrateMover9000();
         crateMover9001 = new CrateMover9001();
     }

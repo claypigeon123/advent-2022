@@ -1,7 +1,7 @@
 package com.cp.advent2022.api.impl;
 
+import com.cp.advent2022.annotation.LoadAdventResource;
 import com.cp.advent2022.api.DayApi;
-import com.cp.advent2022.component.AdventResourceLoader;
 import com.cp.advent2022.data.day7.AbstractFilesystemItem;
 import com.cp.advent2022.data.day7.Directory;
 import com.cp.advent2022.data.day7.File;
@@ -12,6 +12,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 @Component
+@LoadAdventResource
 @Command(name = "day7", mixinStandardHelpOptions = true)
 public class Day7Api extends DayApi {
 
@@ -19,8 +20,8 @@ public class Day7Api extends DayApi {
     private static final String COMMAND_CD = String.format("%s cd ", COMMAND_PREFIX);
     private static final String BACK = "..";
 
-    public Day7Api(AdventResourceLoader adventResourceLoader) {
-        super(7, adventResourceLoader);
+    public Day7Api() {
+        super(7);
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.cp.advent2022.api.impl;
 
+import com.cp.advent2022.annotation.LoadAdventResource;
 import com.cp.advent2022.api.DayApi;
-import com.cp.advent2022.component.AdventResourceLoader;
 import org.springframework.stereotype.Component;
 import picocli.CommandLine.Command;
 
@@ -9,11 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
+@LoadAdventResource
 @Command(name = "day8", mixinStandardHelpOptions = true)
 public class Day8Api extends DayApi {
 
-    public Day8Api(AdventResourceLoader adventResourceLoader) {
-        super(8, adventResourceLoader);
+    public Day8Api() {
+        super(8);
     }
 
     @Override

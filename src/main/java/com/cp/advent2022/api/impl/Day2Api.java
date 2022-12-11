@@ -1,7 +1,7 @@
 package com.cp.advent2022.api.impl;
 
+import com.cp.advent2022.annotation.LoadAdventResource;
 import com.cp.advent2022.api.DayApi;
-import com.cp.advent2022.component.AdventResourceLoader;
 import com.cp.advent2022.data.day2.ActualMatchRound;
 import com.cp.advent2022.data.day2.GuessedMatchRound;
 import com.cp.advent2022.data.day2.resolver.MatchRoundResolver;
@@ -11,14 +11,15 @@ import org.springframework.stereotype.Component;
 import picocli.CommandLine.Command;
 
 @Component
+@LoadAdventResource
 @Command(name = "day2", mixinStandardHelpOptions = true)
 public class Day2Api extends DayApi {
 
     private final MatchRoundResolver<GuessedMatchRound> guessedResolver;
     private final MatchRoundResolver<ActualMatchRound> actualResolver;
 
-    public Day2Api(AdventResourceLoader adventResourceLoader) {
-        super(2, adventResourceLoader);
+    public Day2Api() {
+        super(2);
         guessedResolver = new GuessedMatchRoundResolver();
         actualResolver = new ActualMatchRoundResolver();
     }

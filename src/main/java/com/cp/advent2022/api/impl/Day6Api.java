@@ -1,20 +1,21 @@
 package com.cp.advent2022.api.impl;
 
+import com.cp.advent2022.annotation.LoadAdventResource;
 import com.cp.advent2022.api.DayApi;
-import com.cp.advent2022.component.AdventResourceLoader;
 import org.springframework.stereotype.Component;
 import picocli.CommandLine.Command;
 
 import java.util.regex.Pattern;
 
 @Component
+@LoadAdventResource
 @Command(name = "day6", mixinStandardHelpOptions = true)
 public class Day6Api extends DayApi {
 
     private static final String ALL_CHARS_UNIQUE_REGEX = Pattern.compile("^(?:([A-Za-z])(?!.*\\1))*$").pattern();
 
-    public Day6Api(AdventResourceLoader adventResourceLoader) {
-        super(6, adventResourceLoader);
+    public Day6Api() {
+        super(6);
     }
 
     @Override

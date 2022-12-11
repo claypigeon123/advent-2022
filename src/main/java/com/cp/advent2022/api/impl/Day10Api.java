@@ -1,7 +1,7 @@
 package com.cp.advent2022.api.impl;
 
+import com.cp.advent2022.annotation.LoadAdventResource;
 import com.cp.advent2022.api.DayApi;
-import com.cp.advent2022.component.AdventResourceLoader;
 import com.cp.advent2022.data.day10.Statement;
 import com.cp.advent2022.data.day10.computer.impl.HandheldDeviceWithDisplay;
 import org.springframework.stereotype.Component;
@@ -13,13 +13,14 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @Component
+@LoadAdventResource
 @Command(name = "day10", mixinStandardHelpOptions = true)
 public class Day10Api extends DayApi {
 
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
 
-    public Day10Api(AdventResourceLoader adventResourceLoader) {
-        super(10, adventResourceLoader);
+    public Day10Api() {
+        super(10);
     }
 
     @Override

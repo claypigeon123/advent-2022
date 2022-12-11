@@ -1,7 +1,7 @@
 package com.cp.advent2022.api.impl;
 
+import com.cp.advent2022.annotation.LoadAdventResource;
 import com.cp.advent2022.api.DayApi;
-import com.cp.advent2022.component.AdventResourceLoader;
 import com.cp.advent2022.data.day1.ElfInventory;
 import org.springframework.stereotype.Component;
 import picocli.CommandLine.Command;
@@ -13,13 +13,14 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.PriorityBlockingQueue;
 
 @Component
+@LoadAdventResource
 @Command(name = "day1", mixinStandardHelpOptions = true)
 public class Day1Api extends DayApi {
 
     private static final int QUEUE_MAX_SIZE = 3;
 
-    public Day1Api(AdventResourceLoader adventResourceLoader) {
-        super(1, adventResourceLoader);
+    public Day1Api() {
+        super(1);
     }
 
     @Override
