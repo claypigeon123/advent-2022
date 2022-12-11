@@ -12,17 +12,13 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 @Component
-@LoadAdventResource
+@LoadAdventResource(7)
 @Command(name = "day7", mixinStandardHelpOptions = true)
 public class Day7Api extends DayApi {
 
     private static final String COMMAND_PREFIX = "$";
     private static final String COMMAND_CD = String.format("%s cd ", COMMAND_PREFIX);
     private static final String BACK = "..";
-
-    public Day7Api() {
-        super(7);
-    }
 
     @Override
     protected void execute() {

@@ -8,15 +8,11 @@ import picocli.CommandLine.Command;
 import java.util.regex.Pattern;
 
 @Component
-@LoadAdventResource
+@LoadAdventResource(6)
 @Command(name = "day6", mixinStandardHelpOptions = true)
 public class Day6Api extends DayApi {
 
     private static final String ALL_CHARS_UNIQUE_REGEX = Pattern.compile("^(?:([A-Za-z])(?!.*\\1))*$").pattern();
-
-    public Day6Api() {
-        super(6);
-    }
 
     @Override
     protected void execute() {

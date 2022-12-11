@@ -9,13 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-@LoadAdventResource
+@LoadAdventResource(8)
 @Command(name = "day8", mixinStandardHelpOptions = true)
 public class Day8Api extends DayApi {
-
-    public Day8Api() {
-        super(8);
-    }
 
     @Override
     protected void execute() {

@@ -13,15 +13,11 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.PriorityBlockingQueue;
 
 @Component
-@LoadAdventResource
+@LoadAdventResource(1)
 @Command(name = "day1", mixinStandardHelpOptions = true)
 public class Day1Api extends DayApi {
 
     private static final int QUEUE_MAX_SIZE = 3;
-
-    public Day1Api() {
-        super(1);
-    }
 
     @Override
     protected void execute() {

@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-@LoadAdventResource
+@LoadAdventResource(5)
 @Command(name = "day5", mixinStandardHelpOptions = true)
 public class Day5Api extends DayApi {
 
@@ -22,7 +22,6 @@ public class Day5Api extends DayApi {
     private final CrateStorageOperationProcessor crateMover9001;
 
     public Day5Api() {
-        super(5);
         crateMover9000 = new CrateMover9000();
         crateMover9001 = new CrateMover9001();
     }

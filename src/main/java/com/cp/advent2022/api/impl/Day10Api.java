@@ -13,15 +13,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @Component
-@LoadAdventResource
+@LoadAdventResource(10)
 @Command(name = "day10", mixinStandardHelpOptions = true)
 public class Day10Api extends DayApi {
 
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
-
-    public Day10Api() {
-        super(10);
-    }
 
     @Override
     protected void execute() throws ExecutionException, InterruptedException {

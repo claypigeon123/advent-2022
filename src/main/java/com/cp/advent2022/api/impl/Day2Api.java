@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import picocli.CommandLine.Command;
 
 @Component
-@LoadAdventResource
+@LoadAdventResource(2)
 @Command(name = "day2", mixinStandardHelpOptions = true)
 public class Day2Api extends DayApi {
 
@@ -19,7 +19,6 @@ public class Day2Api extends DayApi {
     private final MatchRoundResolver<ActualMatchRound> actualResolver;
 
     public Day2Api() {
-        super(2);
         guessedResolver = new GuessedMatchRoundResolver();
         actualResolver = new ActualMatchRoundResolver();
     }

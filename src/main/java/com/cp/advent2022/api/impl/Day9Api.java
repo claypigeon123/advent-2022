@@ -16,14 +16,13 @@ import java.util.Set;
 import java.util.stream.IntStream;
 
 @Component
-@LoadAdventResource
+@LoadAdventResource(9)
 @Command(name = "day9", mixinStandardHelpOptions = true)
 public class Day9Api extends DayApi {
 
     private final GridKnotInstructionProcessor instructionProcessor;
 
     public Day9Api() {
-        super(9);
         this.instructionProcessor = new GridKnotInstructionProcessorImpl();
     }
 

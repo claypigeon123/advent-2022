@@ -12,5 +12,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface LoadAdventResource {
-
+    /**
+     * Day number to load inputs for.
+     */
+    int value();
 }

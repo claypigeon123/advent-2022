@@ -12,13 +12,9 @@ import java.util.List;
 import java.util.Set;
 
 @Component
-@LoadAdventResource
+@LoadAdventResource(3)
 @Command(name = "day3", mixinStandardHelpOptions = true)
 public class Day3Api extends DayApi {
-
-    public Day3Api() {
-        super(3);
-    }
 
     @Override
     protected void execute() {
