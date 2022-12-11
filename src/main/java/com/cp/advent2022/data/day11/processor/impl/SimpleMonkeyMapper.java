@@ -6,7 +6,6 @@ import com.cp.advent2022.data.day11.processor.MonkeyMapper;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-import java.util.function.BiFunction;
 import java.util.function.Function;
 
 public class SimpleMonkeyMapper implements MonkeyMapper {
@@ -30,7 +29,7 @@ public class SimpleMonkeyMapper implements MonkeyMapper {
         token = lines.get(2);
         token = token.substring(token.indexOf("old") + 4);
         String[] operationTokens = token.split(" ");
-        BiFunction<Long, Boolean, Long> operation = (old, useLcm) -> {
+        Function<Long, Long> operation = old -> {
             String target = operationTokens[1];
             long targetLong = target.equals("old") ? old : Long.parseLong(target);
 

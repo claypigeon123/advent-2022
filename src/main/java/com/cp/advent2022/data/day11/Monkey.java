@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.Queue;
-import java.util.function.BiFunction;
 import java.util.function.Function;
 
 @Data
@@ -16,7 +15,7 @@ public class Monkey {
 
     private Queue<Long> items;
 
-    private BiFunction<Long, Boolean, Long> operation;
+    private Function<Long, Long> operation;
 
     private long divisibleBy;
 

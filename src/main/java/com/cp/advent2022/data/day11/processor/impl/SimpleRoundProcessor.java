@@ -36,11 +36,11 @@ public class SimpleRoundProcessor implements RoundProcessor {
             if (monkey.getItems().peek() == null) continue;
 
             long worry = monkey.getItems().poll();
+            worry = monkey.getOperation().apply(worry);
+
             if (quellBy != null) {
-                worry = monkey.getOperation().apply(worry, false);
                 worry = Math.floorDiv(worry, quellBy);
             } else {
-                worry = monkey.getOperation().apply(worry, true);
                 worry = worry % lcm;
             }
 
