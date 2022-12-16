@@ -1,14 +1,16 @@
-package com.cp.advent2022.data.day13.processor.impl;
+package com.cp.advent2022.data.day13.comparator;
 
-import com.cp.advent2022.data.day13.processor.CompareResult;
-import com.cp.advent2022.data.day13.processor.PacketComparator;
-
+import java.util.Comparator;
 import java.util.List;
 
-public class PacketComparatorImpl implements PacketComparator {
+public class PacketComparator implements Comparator<Object> {
 
     @Override
-    public CompareResult compare(Object left, Object right) {
+    public int compare(Object o1, Object o2) {
+        return comparePackets(o1, o2).getCompare();
+    }
+
+    private CompareResult comparePackets(Object left, Object right) {
         if (left instanceof Integer leftInt && right instanceof Integer rightInt) {
             if (leftInt < rightInt) return CompareResult.RIGHT_ORDER;
             else if (leftInt > rightInt) return CompareResult.NOT_RIGHT_ORDER;
@@ -19,7 +21,7 @@ public class PacketComparatorImpl implements PacketComparator {
             int min = Math.min(leftList.size(), rightList.size());
 
             for (int i = 0; i < min; i++) {
-                var result = compare(leftList.get(i), rightList.get(i));
+                var result = comparePackets(leftList.get(i), rightList.get(i));
                 if (result != CompareResult.CONTINUE) return result;
             }
 
@@ -29,11 +31,11 @@ public class PacketComparatorImpl implements PacketComparator {
         }
 
         if (left instanceof List<?> leftList && right instanceof Integer rightInt) {
-            return compare(leftList, List.of(rightInt));
+            return comparePackets(leftList, List.of(rightInt));
         }
 
         if (left instanceof Integer leftInt && right instanceof List<?> rightList) {
-            return compare(List.of(leftInt), rightList);
+            return comparePackets(List.of(leftInt), rightList);
         }
 
         throw new RuntimeException("Invalid path");
