@@ -1,7 +1,9 @@
 package com.cp.advent2022.api;
 
+import lombok.extern.slf4j.Slf4j;
 import picocli.CommandLine.IExitCodeGenerator;
 
+@Slf4j
 public abstract class Api implements Runnable, IExitCodeGenerator {
 
     protected int exitCode = 0;
@@ -17,10 +19,11 @@ public abstract class Api implements Runnable, IExitCodeGenerator {
         try {
             initialize();
             execute();
-            close();
         } catch (Exception e) {
             exitCode = -1;
-            e.printStackTrace();
+            log.error("Runtime error", e);
+        } finally {
+            close();
         }
     }
 
