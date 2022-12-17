@@ -3,6 +3,7 @@ package com.cp.advent2022.api.impl;
 import com.cp.advent2022.api.DayApi;
 import com.cp.advent2022.aspect.resloader.LoadAdventResource;
 import com.cp.advent2022.data.common.PuzzleUtils;
+import com.cp.advent2022.data.day15.GridItem;
 import com.cp.advent2022.data.day15.Sensor;
 import org.springframework.stereotype.Component;
 import picocli.CommandLine.Command;
@@ -15,7 +16,10 @@ import java.util.List;
 @Command(name = "day15", mixinStandardHelpOptions = true)
 public class Day15Api extends DayApi {
 
-    private static final int PART_ONE_ROW = 2000000;
+    private static final int PART_ONE_ROW = 2_000_000;
+
+    private static final int PART_TWO_MIN = 0;
+    private static final int PART_TWO_MAX = 4_000_000;
 
     @Override
     protected void execute() throws Exception {
@@ -48,10 +52,35 @@ public class Day15Api extends DayApi {
             minX = Math.min(sensor.getX() - range, minX);
             maxX = Math.max(sensor.getX() + range, maxX);
         }
-        int count = maxX - minX;
+        int cannotHaveBeaconCount = maxX - minX;
+
+        GridItem distressBeacon = null;
+        for (Sensor sensor : sensors) {
+            List<GridItem> edges = sensor.edges();
+
+            for (GridItem e : edges) {
+                if (e.getY() < PART_TWO_MIN || e.getY() > PART_TWO_MAX || e.getX() < PART_TWO_MIN || e.getX() > PART_TWO_MAX) {
+                    continue;
+                }
+
+                boolean missedByAllSensors = sensors.stream()
+                    .noneMatch(s -> s.inRange(e.getY(), e.getX()));
+
+                if (missedByAllSensors) {
+                    distressBeacon = e;
+                    break;
+                }
+            }
+
+            if (distressBeacon != null) break;
+        }
+
+        assert distressBeacon != null;
 
         // ---
 
-        System.out.printf("1. In row %d, the number of positions that cannot contain a beacon is %d.\n\n", PART_ONE_ROW, count);
+        System.out.printf("1. In row %d, the number of positions that cannot contain a beacon is %d.\n\n", PART_ONE_ROW, cannotHaveBeaconCount);
+
+        System.out.printf("2. The tuning frequency of the distress beacon is %d.\n\n", ((long) distressBeacon.getX() * 4_000_000L + (long) distressBeacon.getY()));
     }
 }
