@@ -15,4 +15,8 @@ public class PuzzleUtils {
         }
         return lcm;
     }
+
+    public static int manhattanDistance(int y1, int x1, int y2, int x2) {
+        return Math.abs(y1 - y2) + Math.abs(x1 - x2);
+    }
 }
