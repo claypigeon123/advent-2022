@@ -11,18 +11,18 @@ import java.util.Arrays;
 import java.util.List;
 
 @Data
-public class Cave {
-    private static final char SPACE = '.';
-    private static final char SAND = 'o';
-    private static final char ROCK = '#';
+public class BottomlessCave {
+    protected static final char SPACE = '.';
+    protected static final char SAND = 'o';
+    protected static final char ROCK = '#';
 
-    private static final int SAND_ORIGIN_Y = 0, SAND_ORIGIN_X = 499;
+    protected static final int SAND_ORIGIN_Y = 0, SAND_ORIGIN_X = 500;
 
-    private char[][] terrain;
-    private int settledSandCounter;
-    private boolean filled;
+    protected char[][] terrain;
+    protected int settledSandCounter;
+    protected boolean filled;
 
-    public Cave() {
+    public BottomlessCave() {
         this.terrain = new char[200][1000];
         for (char[] row : terrain) {
             Arrays.fill(row, SPACE);
@@ -30,19 +30,6 @@ public class Cave {
 
         this.settledSandCounter = 0;
         this.filled = false;
-    }
-
-    public void print() {
-        try (PrintWriter pw = new PrintWriter(new BufferedOutputStream(Files.newOutputStream(Path.of("field.txt"))), true)) {
-            for (char[] row : terrain) {
-                for (char c : row) {
-                    pw.print(c);
-                }
-                pw.print("\n");
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     public void applyRockVectorGroup(List<Vector> vectors) {
@@ -53,8 +40,8 @@ public class Cave {
             int toY = Math.max(vec.getFromY(), vec.getToY());
             int toX = Math.max(vec.getFromX(), vec.getToX());
 
-            for (int y = fromY - 1; y < toY; y++) {
-                for (int x = fromX - 1; x < toX; x++) {
+            for (int y = fromY; y <= toY; y++) {
+                for (int x = fromX; x <= toX; x++) {
                     terrain[y][x] = ROCK;
                 }
             }
@@ -87,8 +74,21 @@ public class Cave {
         }
     }
 
-    private boolean isNotBlocked(int y, int x) {
+    protected boolean isNotBlocked(int y, int x) {
         char atPos = terrain[y][x];
         return atPos != ROCK && atPos != SAND;
+    }
+
+    public void print() {
+        try (PrintWriter pw = new PrintWriter(new BufferedOutputStream(Files.newOutputStream(Path.of("field.txt"))), true)) {
+            for (char[] row : terrain) {
+                for (char c : row) {
+                    pw.print(c);
+                }
+                pw.print("\n");
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
