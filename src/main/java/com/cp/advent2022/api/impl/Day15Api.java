@@ -45,6 +45,8 @@ public class Day15Api extends DayApi {
             sensors.add(new Sensor(y, x, PuzzleUtils.manhattanDistance(y, x, reachY, reachX)));
         }
 
+        // --- PART 1
+
         int minX = Integer.MAX_VALUE;
         int maxX = Integer.MIN_VALUE;
         for (Sensor sensor : sensors) {
@@ -53,6 +55,8 @@ public class Day15Api extends DayApi {
             maxX = Math.max(sensor.getX() + range, maxX);
         }
         int cannotHaveBeaconCount = maxX - minX;
+
+        // --- PART 2
 
         GridItem distressBeacon = null;
         for (Sensor sensor : sensors) {
@@ -74,7 +78,6 @@ public class Day15Api extends DayApi {
 
             if (distressBeacon != null) break;
         }
-
         assert distressBeacon != null;
 
         // ---
