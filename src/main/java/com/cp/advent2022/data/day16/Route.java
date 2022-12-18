@@ -2,20 +2,20 @@ package com.cp.advent2022.data.day16;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.*;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class Route {
-    private Valve at;
-    private int minute;
-    private long accumulatedFlow;
-    private Set<String> opened;
+    protected Valve at;
+    protected int minute;
+    protected long accumulatedFlow;
+    protected Set<String> opened;
 
     public static List<Route> nextFrom(Route route, Map<String, Valve> valveMap, Map<String, Valve> valvesOfInterest) {
-        List<Route> nextRoutes = new ArrayList<>();
-
         route.minute++;
 
         int sum = route.opened.stream()
@@ -32,6 +32,8 @@ public class Route {
             route.opened.add(route.at.getLabel());
             return List.of(route);
         }
+
+        List<Route> nextRoutes = new ArrayList<>();
 
         route.getAt().getLeadsTo().stream()
             .map(valveMap::get)
