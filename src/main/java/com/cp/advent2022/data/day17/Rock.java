@@ -16,7 +16,7 @@ public class Rock {
     private List<Position2D> parts;
     private boolean settled;
 
-    public static Rock next(int leftEdge, int bottomEdge) {
+    public static Rock next(long leftEdge, long bottomEdge) {
         counter++;
         if (counter == 5) counter = 0;
 
@@ -30,16 +30,16 @@ public class Rock {
         };
     }
 
-    private static Rock horizontalLine(int leftEdge, int bottomEdge) {
+    private static Rock horizontalLine(long leftEdge, long bottomEdge) {
         List<Position2D> parts = new ArrayList<>();
-        for (int x = leftEdge; x <= leftEdge + 3; x++) {
+        for (long x = leftEdge; x <= leftEdge + 3; x++) {
             parts.add(new Position2D(bottomEdge, x));
         }
 
         return new Rock(Collections.unmodifiableList(parts), false);
     }
 
-    private static Rock plusSign(int leftEdge, int bottomEdge) {
+    private static Rock plusSign(long leftEdge, long bottomEdge) {
         Position2D up = new Position2D(bottomEdge - 2, leftEdge + 1);
         Position2D left = new Position2D(bottomEdge - 1, leftEdge);
         Position2D center = new Position2D(bottomEdge - 1, leftEdge + 1);
@@ -49,7 +49,7 @@ public class Rock {
         return new Rock(List.of(up, left, center, right, bottom), false);
     }
 
-    private static Rock invertedL(int leftEdge, int bottomEdge) {
+    private static Rock invertedL(long leftEdge, long bottomEdge) {
         Position2D top = new Position2D(bottomEdge - 2, leftEdge + 2);
         Position2D center = new Position2D(bottomEdge - 1, leftEdge + 2);
         Position2D lineRight = new Position2D(bottomEdge, leftEdge + 2);
@@ -59,42 +59,21 @@ public class Rock {
         return new Rock(List.of(top, center, lineRight, lineCenter, lineLeft), false);
     }
 
-    private static Rock verticalLine(int leftEdge, int bottomEdge) {
+    private static Rock verticalLine(long leftEdge, long bottomEdge) {
         List<Position2D> parts = new ArrayList<>();
-        for (int y = bottomEdge - 3; y <= bottomEdge; y++) {
+        for (long y = bottomEdge - 3; y <= bottomEdge; y++) {
             parts.add(new Position2D(y, leftEdge));
         }
 
         return new Rock(Collections.unmodifiableList(parts), false);
     }
 
-    private static Rock square(int leftEdge, int bottomEdge) {
+    private static Rock square(long leftEdge, long bottomEdge) {
         Position2D upperLeft = new Position2D(bottomEdge - 1, leftEdge);
         Position2D upperRight = new Position2D(bottomEdge - 1, leftEdge + 1);
         Position2D lowerLeft = new Position2D(bottomEdge, leftEdge);
         Position2D lowerRight = new Position2D(bottomEdge, leftEdge + 1);
 
         return new Rock(List.of(upperLeft, upperRight, lowerLeft, lowerRight), false);
-    }
-
-    public int getEdgeInDirection(Direction dir) {
-        return switch (dir) {
-            case RIGHT -> this.parts.stream()
-                .mapToInt(Position2D::getX)
-                .max()
-                .orElseThrow();
-            case LEFT -> this.parts.stream()
-                .mapToInt(Position2D::getX)
-                .min()
-                .orElseThrow();
-            case DOWN -> this.parts.stream()
-                .mapToInt(Position2D::getY)
-                .max()
-                .orElseThrow();
-            case UP -> this.parts.stream()
-                .mapToInt(Position2D::getY)
-                .min()
-                .orElseThrow();
-        };
     }
 }
