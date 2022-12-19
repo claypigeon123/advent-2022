@@ -8,10 +8,10 @@ import lombok.*;
 public class Position2D {
 
     @Getter @Setter
-    private long y;
+    protected long y;
 
     @Getter @Setter
-    private long x;
+    protected long x;
 
     @Override
     public String toString() {
