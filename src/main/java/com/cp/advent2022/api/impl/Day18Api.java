@@ -31,14 +31,14 @@ public class Day18Api extends DayApi {
 
         long allExposedSides = 0;
         for (Position3D checked : cubes) {
-            allExposedSides += getExposedSides(checked, cubes);
+            allExposedSides += getExposedSides(checked, cubes, false);
         }
 
         Set<Position3D> surfacePositions = floodFill(cubes);
 
         long outwardExposedSides = 0;
         for (Position3D checked : cubes) {
-            outwardExposedSides += getExposedSidesToNeighborsFrom(checked, surfacePositions);
+            outwardExposedSides += getExposedSides(checked, surfacePositions, true);
         }
 
         // ---
@@ -48,7 +48,7 @@ public class Day18Api extends DayApi {
         System.out.printf("2. The total number of outward-facing exposed sides is %d.\n\n", outwardExposedSides);
     }
 
-    public int getExposedSides(Position3D location, Set<Position3D> takenPositions) {
+    public int getExposedSides(Position3D location, Set<Position3D> takenPositions, boolean invert) {
         int exposedSides = 6;
         long z = location.getZ(), y = location.getY(), x = location.getX();
 
@@ -59,21 +59,7 @@ public class Day18Api extends DayApi {
         if (takenPositions.contains(new Position3D(z , y, x - 1))) exposedSides--;
         if (takenPositions.contains(new Position3D(z, y, x + 1))) exposedSides--;
 
-        return exposedSides;
-    }
-
-    public int getExposedSidesToNeighborsFrom(Position3D location, Set<Position3D> water) {
-        int exposedSides = 0;
-        long z = location.getZ(), y = location.getY(), x = location.getX();
-
-        if (water.contains(new Position3D(z - 1, y, x))) exposedSides++;
-        if (water.contains(new Position3D(z + 1, y, x))) exposedSides++;
-        if (water.contains(new Position3D(z, y - 1, x))) exposedSides++;
-        if (water.contains(new Position3D(z, y + 1, x))) exposedSides++;
-        if (water.contains(new Position3D(z , y, x - 1))) exposedSides++;
-        if (water.contains(new Position3D(z, y, x + 1))) exposedSides++;
-
-        return exposedSides;
+        return invert ? 6 - exposedSides : exposedSides;
     }
 
     private Set<Position3D> floodFill(Set<Position3D> positions) {
