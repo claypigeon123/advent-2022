@@ -29,7 +29,6 @@ public class SimpleCube {
 
     public int getExposedSides(List<SimpleCube> against) {
         int exposedSides = 6;
-
         long z = location.getZ(), y = location.getY(), x = location.getX();
 
         Set<Position3D> takenPositions = against.stream()

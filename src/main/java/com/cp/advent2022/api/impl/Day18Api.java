@@ -22,13 +22,20 @@ public class Day18Api extends DayApi {
             cubes.add(SimpleCube.fromString(line));
         }
 
-        long exposedSides = 0;
+        long allExposedSides = 0;
         for (SimpleCube checked : cubes) {
-            exposedSides += checked.getExposedSides(cubes);
+            allExposedSides += checked.getExposedSides(cubes);
+        }
+
+        long outwardExposedSides = 0;
+        for (SimpleCube checked : cubes) {
+
         }
 
         // ---
 
-        System.out.printf("1. The total number of exposed sides is %d.", exposedSides);
+        System.out.printf("1. The total number of exposed sides is %d.\n\n", allExposedSides);
+
+        System.out.printf("2. The total number of outward-facing exposed sides is %d.\n\n", outwardExposedSides);
     }
 }
