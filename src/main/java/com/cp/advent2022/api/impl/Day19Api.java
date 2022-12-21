@@ -23,17 +23,22 @@ public class Day19Api extends DayApi {
     @Override
     protected void execute() throws Exception {
         List<SimulationCallable> simulationCallables = new ArrayList<>();
+        List<SimulationCallable> secondPartCallables = new ArrayList<>();
 
-        for (String line : lines) {
-            Blueprint blueprint = Blueprint.fromString(line);
-            simulationCallables.add(new SimulationCallable(24, blueprint));
+        for (int i = 0; i < lines.size(); i++) {
+            Blueprint blueprint = Blueprint.fromString(lines.get(i));
+            simulationCallables.add(new SimulationCallable(24, blueprint, false));
+
+            if (i < 3) {
+                secondPartCallables.add(new SimulationCallable(32, blueprint, true));
+            }
         }
 
         List<Future<Integer>> futures = executor.invokeAll(simulationCallables);
         List<Integer> results = new ArrayList<>();
 
         for (var future : futures) {
-            Integer res =  future.get();
+            Integer res = future.get();
             if (res != null) results.add(res);
         }
 
@@ -41,8 +46,22 @@ public class Day19Api extends DayApi {
             .mapToInt(i -> i)
             .sum();
 
+        futures = executor.invokeAll(secondPartCallables);
+        results = new ArrayList<>();
+
+        for (var future : futures) {
+            Integer res = future.get();
+            if (res != null) results.add(res);
+        }
+
+        int product = results.stream()
+            .mapToInt(i -> i)
+            .reduce(1, (left, right) -> left * right);
+
         // ---
 
         System.out.printf("1. The summed quality of all blueprints is %d.\n\n", qualitySum);
+
+        System.out.printf("2. The summed quality of all blueprints is %d.\n\n", product);
     }
 }
