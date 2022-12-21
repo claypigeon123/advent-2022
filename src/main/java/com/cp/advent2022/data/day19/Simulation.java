@@ -33,13 +33,7 @@ public class Simulation {
     }
 
     public static Simulation newFrom(Simulation s) {
-        var robots = new HashMap<>(Map.of(
-            RobotType.ORE, Integer.valueOf(s.robots.get(RobotType.ORE)),
-            RobotType.CLAY, Integer.valueOf(s.robots.get(RobotType.CLAY)),
-            RobotType.OBSIDIAN, Integer.valueOf(s.robots.get(RobotType.OBSIDIAN)),
-            RobotType.GEODE, Integer.valueOf(s.robots.get(RobotType.GEODE))
-        ));
-        return new Simulation(s.minute, s.blueprint, robots, s.ores, s.clay, s.obsidian, s.geodes);
+        return new Simulation(s.minute, s.blueprint, new HashMap<>(Map.copyOf(s.robots)), s.ores, s.clay, s.obsidian, s.geodes);
     }
 
     public void advanceTime() {
